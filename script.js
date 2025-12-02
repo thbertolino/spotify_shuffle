@@ -5,7 +5,8 @@ const CLIENT_ID = "39300b1668d6473783173aa8629ccf6f";
 
 // ❗ Ao publicar no Github Pages troque isso para:
 // const REDIRECT_URI = "https://SEU_USUARIO.github.io/SEU_REPOSITORIO";
-const REDIRECT_URI = window.location.origin + window.location.pathname;
+// const REDIRECT_URI = window.location.origin + window.location.pathname;
+const REDIRECT_URI = "https://thbertolino.github.io/spotify_shuffle/";
 
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const RESPONSE_TYPE = "token";
