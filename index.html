@@ -156,42 +156,63 @@ async function start() {
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code");
 
-  let accessToken = localStorage.getItem("access_token");
+  let token = localStorage.getItem("access_token");
 
-  if (code && !accessToken) {
+  if (code && !token) {
     const tokenResp = await getToken(code);
-
-    accessToken = tokenResp.access_token;
-    localStorage.setItem("access_token", accessToken);
-
-    // limpar URL
+    token = tokenResp.access_token;
+    localStorage.setItem("access_token", token);
     window.history.replaceState({}, document.title, REDIRECT_URI);
   }
 
-  if (!accessToken) return;
+  if (!token) return;
 
   document.getElementById("login-btn").style.display = "none";
 
-  const albums = await getSavedAlbums(accessToken);
-
-  if (albums.length === 0) {
-    document.getElementById("album").innerHTML = "<p>Nenhum álbum salvo.</p>";
-    return;
+  async function renderRandom() {
+    const album = await getRandomAlbum(token);
+    mostrarAlbum(album);
   }
 
-  const randomBtn = document.getElementById("random-btn");
-  randomBtn.style.display = "inline-block";
+  document.getElementById("random-btn").style.display = "inline-block";
+  document.getElementById("random-btn").onclick = renderRandom;
 
-  function randomize() {
-    const item = albums[Math.floor(Math.random() * albums.length)];
-    mostrarAlbum(item.album);
-  }
-
-  randomBtn.onclick = randomize;
-  randomize();
+  // primeiro álbum ao entrar
+  renderRandom();
 }
 
 start();
+
+/* --------------------------------------------------
+   BUSCAR ÁLBUM ALEATÓRIO (ULTRA RÁPIDO)
+-------------------------------------------------- */
+async function getRandomAlbum(token) {
+  // 1) pegar total
+  const resTotal = await fetch(
+    "https://api.spotify.com/v1/me/albums?limit=1",
+    {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+  );
+
+  const dataTotal = await resTotal.json();
+  const total = dataTotal.total;
+
+  // 2) sortear offset
+  const offset = Math.floor(Math.random() * total);
+
+  // 3) buscar apenas esse item
+  const resAlbum = await fetch(
+    `https://api.spotify.com/v1/me/albums?limit=1&offset=${offset}`,
+    {
+      headers: { Authorization: `Bearer ${token}` }
+    }
+  );
+
+  const dataAlbum = await resAlbum.json();
+  return dataAlbum.items[0].album;
+}
+
 </script>
 
 </body>
