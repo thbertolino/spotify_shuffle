@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Spotify Album Shuffle">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4ade80" />
+      <stop offset="100%" stop-color="#1db954" />
+    </linearGradient>
+  </defs>
+
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#bg)" />
+  <circle cx="256" cy="256" r="150" fill="url(#green)" opacity="0.16" />
+  <circle cx="256" cy="256" r="116" fill="none" stroke="url(#green)" stroke-width="20" opacity="0.9" />
+  <circle cx="256" cy="256" r="24" fill="url(#green)" />
+
+  <path d="M188 198c20-20 44-30 72-30h18l-20-20 27-27 68 68-68 68-27-27 20-20h-18c-18 0-32 6-45 19l-39 39c-21 21-46 31-74 31h-14v-38h14c18 0 32-6 45-19z" fill="#f8fafc"/>
+  <path d="M324 314c-20 20-44 30-72 30h-18l20 20-27 27-68-68 68-68 27 27-20 20h18c18 0 32-6 45-19l39-39c21-21 46-31 74-31h14v38h-14c-18 0-32 6-45 19z" fill="#f8fafc"/>
+</svg>
